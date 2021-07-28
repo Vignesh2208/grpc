@@ -332,7 +332,7 @@ TEST_F(TlsSecurityConnectorTest,
   auto connector =
       grpc_core::TlsChannelSecurityConnector::CreateTlsChannelSecurityConnector(
           nullptr, grpc_core::MakeRefCounted<grpc_tls_credentials_options>(),
-          nullptr, kTargetName, nullptr, nullptr);
+          nullptr, kTargetName, nullptr, nullptr, nullptr);
   EXPECT_EQ(connector, nullptr);
 }
 
@@ -343,7 +343,7 @@ TEST_F(TlsSecurityConnectorTest, CreateChannelSecurityConnectorFailNoOptions) {
       grpc_core::MakeRefCounted<TlsCredentials>(options);
   auto connector =
       grpc_core::TlsChannelSecurityConnector::CreateTlsChannelSecurityConnector(
-          credential, nullptr, nullptr, kTargetName, nullptr, nullptr);
+          credential, nullptr, nullptr, kTargetName, nullptr, nullptr, nullptr);
   EXPECT_EQ(connector, nullptr);
 }
 
@@ -528,7 +528,8 @@ TEST_F(TlsSecurityConnectorTest,
        CreateServerSecurityConnectorFailNoCredentials) {
   auto connector =
       grpc_core::TlsServerSecurityConnector::CreateTlsServerSecurityConnector(
-          nullptr, grpc_core::MakeRefCounted<grpc_tls_credentials_options>());
+          nullptr, grpc_core::MakeRefCounted<grpc_tls_credentials_options>(),
+          nullptr);
   EXPECT_EQ(connector, nullptr);
 }
 
@@ -539,7 +540,7 @@ TEST_F(TlsSecurityConnectorTest, CreateServerSecurityConnectorFailNoOptions) {
       grpc_core::MakeRefCounted<TlsServerCredentials>(options);
   auto connector =
       grpc_core::TlsServerSecurityConnector::CreateTlsServerSecurityConnector(
-          credential, nullptr);
+          credential, nullptr, nullptr);
   EXPECT_EQ(connector, nullptr);
 }
 
