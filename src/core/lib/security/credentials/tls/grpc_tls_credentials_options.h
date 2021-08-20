@@ -130,19 +130,18 @@ struct grpc_tls_credentials_options
   // used internally.
   grpc_core::RefCountedPtr<tsi::TlsKeyLogger> get_tls_key_logger() {
     if (tls_key_logger_.get() == nullptr &&
-      !tls_key_log_config_.tls_key_log_file_path.empty() &&
-      strcmp(gpr_getenv(GRPC_TLS_KEY_LOGGING_ENV_VAR), "true") == 0) {
+        !tls_key_log_config_.tls_key_log_file_path.empty() &&
+        strcmp(gpr_getenv(GRPC_TLS_KEY_LOGGING_ENV_VAR), "true") == 0) {
       // Tls key logging is assumed to be enabled if the specified log file is
       // non-empty and GRPC_TLS_KEY_LOGGING_ENABLED environment variable is set
       // to true.
       gpr_log(GPR_INFO, "Enabling TLS Keylogging with keys stored at: %s",
               tls_key_log_config_.tls_key_log_file_path.c_str());
-      tls_key_logger_ = tsi::TlsKeyLoggerRegistry::CreateTlsKeyLogger(
-        tls_key_log_config_);
+      tls_key_logger_ =
+          tsi::TlsKeyLoggerRegistry::CreateTlsKeyLogger(tls_key_log_config_);
     }
     return tls_key_logger_;
   }
-
 
   // Setters for member fields.
   void set_cert_request_type(

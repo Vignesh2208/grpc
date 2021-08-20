@@ -35,7 +35,6 @@ extern "C" {
 #include "src/core/lib/gprpp/ref_counted.h"
 #include "src/core/lib/gprpp/sync.h"
 
-
 /// Configuration for tls key logging. Defines the opaque struct specified in
 /// grpc_security.h
 struct grpc_tls_key_log_config {
@@ -60,9 +59,9 @@ struct grpc_tls_key_log_config {
 
   /// Assignment operation.
   grpc_tls_key_log_config& operator=(const grpc_tls_key_log_config& other) {
-      tls_key_log_file_path = other.tls_key_log_file_path;
-      key_logging_format = other.key_logging_format;
-      return *this;
+    tls_key_log_file_path = other.tls_key_log_file_path;
+    key_logging_format = other.key_logging_format;
+    return *this;
   }
 };
 
@@ -133,9 +132,8 @@ class TlsKeyLogger : public grpc_core::RefCounted<TlsKeyLogger> {
   /// keys only when connections are made by certain IPs etc.
   void LogSessionKeys(SSL_CTX* ssl_context,
                       const std::string& session_keys_info) {
-    tls_key_log_file_writer_->AppendSessionKeys(ssl_context,
-                                                tsi_tls_key_log_config_,
-                                                session_keys_info);
+    tls_key_log_file_writer_->AppendSessionKeys(
+        ssl_context, tsi_tls_key_log_config_, session_keys_info);
   }
 
  private:
@@ -149,9 +147,8 @@ class TlsKeyLoggerRegistry {
   /// tls_key_logger_config. The TlsKeyLogger object will re-use an existing
   /// TlsKeyLogFileWriter instance if one already exists for the file path
   /// specified in the tls_key_logger_config.
-  static grpc_core::RefCountedPtr<TlsKeyLogger>
-  CreateTlsKeyLogger(const TsiTlsKeyLoggerConfig& tls_key_logger_config);
-
+  static grpc_core::RefCountedPtr<TlsKeyLogger> CreateTlsKeyLogger(
+      const TsiTlsKeyLoggerConfig& tsi_tls_key_log_config);
 
   /// Initializes the TlsKeyLoggerRegistry.
   static void Init();

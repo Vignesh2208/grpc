@@ -157,7 +157,6 @@ class TlsKeyLoggingEnd2EndTest : public ::testing::TestWithParam<TestScenario> {
   }
 
   void SetUp() override {
-
     ::grpc::ServerBuilder builder;
     ::grpc::ChannelArguments args;
     args.SetSslTargetNameOverride("foo.test.google.com.au");

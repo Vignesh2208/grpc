@@ -50,7 +50,8 @@ TlsKeyLogFileWriter::TlsKeyLogFileWriter(
   if (error != GRPC_ERROR_NONE) {
     gpr_log(GPR_ERROR,
             "Ignoring TLS Key logging. ERROR Opening TLS Keylog "
-            "file: %s", grpc_error_std_string(error).c_str());
+            "file: %s",
+            grpc_error_std_string(error).c_str());
   }
 };
 
@@ -96,8 +97,7 @@ void TlsKeyLogFileWriter::AppendSessionKeys(
   }
 }
 
-grpc_core::RefCountedPtr<TlsKeyLogger>
-TlsKeyLoggerRegistry::CreateTlsKeyLogger(
+grpc_core::RefCountedPtr<TlsKeyLogger> TlsKeyLoggerRegistry::CreateTlsKeyLogger(
     const TsiTlsKeyLoggerConfig& tsi_tls_key_log_config) {
 #if OPENSSL_VERSION_NUMBER >= 0x10100000 && !defined(LIBRESSL_VERSION_NUMBER)
   if (!g_tls_key_logger_registry_initialized.load()) {
@@ -119,8 +119,8 @@ TlsKeyLoggerRegistry::CreateTlsKeyLogger(
     // which share this TlsKeyLogFileWriter instance also become owners.
     auto new_tls_key_log_file_writer =
         grpc_core::MakeRefCounted<TlsKeyLogFileWriter>(
-                                  tsi_tls_key_log_config.tls_key_log_file_path)
-                                  .release();
+            tsi_tls_key_log_config.tls_key_log_file_path)
+            .release();
 
     g_tls_key_log_file_writer_map.insert(
         std::pair<std::string, TlsKeyLogFileWriter*>(
@@ -129,17 +129,15 @@ TlsKeyLoggerRegistry::CreateTlsKeyLogger(
 
     // The key logger also becomes an owner of the key log file writer
     // instance.
-    auto new_tls_key_logger =
-        grpc_core::MakeRefCounted<TlsKeyLogger>(
-            tsi_tls_key_log_config, new_tls_key_log_file_writer->Ref());
+    auto new_tls_key_logger = grpc_core::MakeRefCounted<TlsKeyLogger>(
+        tsi_tls_key_log_config, new_tls_key_log_file_writer->Ref());
     return new_tls_key_logger;
   }
 
   // The key logger also becomes an owner of the key log file writer
   // instance.
-  auto new_tls_key_logger =
-      grpc_core::MakeRefCounted<TlsKeyLogger>(tsi_tls_key_log_config,
-                                              it->second->Ref());
+  auto new_tls_key_logger = grpc_core::MakeRefCounted<TlsKeyLogger>(
+      tsi_tls_key_log_config, it->second->Ref());
   return new_tls_key_logger;
 #endif
   return nullptr;
