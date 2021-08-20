@@ -537,7 +537,7 @@ TEST_F(TlsSecurityConnectorTest, CreateServerSecurityConnectorFailNoOptions) {
       grpc_core::MakeRefCounted<TlsServerCredentials>(options);
   auto connector =
       grpc_core::TlsServerSecurityConnector::CreateTlsServerSecurityConnector(
-          credential, nullptr);
+          credential, nullptr, nullptr);
   EXPECT_EQ(connector, nullptr);
 }
 
