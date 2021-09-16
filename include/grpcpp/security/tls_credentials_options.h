@@ -160,7 +160,8 @@ class TlsKeyLoggerConfig {
  public:
   // Constructor
   explicit TlsKeyLoggerConfig()
-      : tls_key_log_file_path(""), tls_key_log_format(GRPC_TLS_KEY_LOG_FORMAT_NSS){};
+      : tls_key_log_file_path(""),
+        tls_key_log_format(GRPC_TLS_KEY_LOG_FORMAT_NSS){};
 
   // Copy ctor
   TlsKeyLoggerConfig(const TlsKeyLoggerConfig& copy) {

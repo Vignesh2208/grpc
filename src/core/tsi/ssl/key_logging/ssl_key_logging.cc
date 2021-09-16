@@ -18,22 +18,23 @@
 
 #include <grpc/support/port_platform.h>
 
+#include "src/core/tsi/ssl/key_logging/ssl_key_logging.h"
+
 #include <map>
+
+#include <grpc/support/log.h>
+#include <grpc/support/string_util.h>
 
 #include "src/core/lib/gprpp/sync.h"
 #include "src/core/lib/iomgr/error.h"
 #include "src/core/lib/slice/slice_internal.h"
-#include "src/core/tsi/ssl/key_logging/ssl_key_logging.h"
-
-#include <grpc/support/log.h>
-#include <grpc/support/string_util.h>
 
 namespace tsi {
 
 #if OPENSSL_VERSION_NUMBER >= 0x10100000 && !defined(LIBRESSL_VERSION_NUMBER)
 grpc_core::Mutex* g_tls_key_logger_registry_mu;
 std::map<std::string, TlsKeyLogFileWriter*> g_tls_key_log_file_writer_map
-  ABSL_GUARDED_BY(g_tls_key_logger_registry_mu);
+    ABSL_GUARDED_BY(g_tls_key_logger_registry_mu);
 static std::atomic<bool> g_tls_key_logger_registry_initialized(false);
 #endif
 
@@ -51,7 +52,8 @@ TlsKeyLogFileWriter::TlsKeyLogFileWriter(
   if (error != GRPC_ERROR_NONE) {
     gpr_log(GPR_ERROR,
             "Ignoring TLS Key logging. ERROR Opening TLS Keylog "
-            "file: %s", grpc_error_std_string(error).c_str());
+            "file: %s",
+            grpc_error_std_string(error).c_str());
   }
 };
 
@@ -101,8 +103,7 @@ void TlsKeyLogFileWriter::AppendSessionKeys(
   }
 }
 
-grpc_core::RefCountedPtr<TlsKeyLogger>
-TlsKeyLoggerRegistry::CreateTlsKeyLogger(
+grpc_core::RefCountedPtr<TlsKeyLogger> TlsKeyLoggerRegistry::CreateTlsKeyLogger(
     const TsiTlsKeyLoggerConfig& tsi_tls_key_log_config) {
 #if OPENSSL_VERSION_NUMBER >= 0x10100000 && !defined(LIBRESSL_VERSION_NUMBER)
   if (!g_tls_key_logger_registry_initialized.load()) {
@@ -121,7 +122,7 @@ TlsKeyLoggerRegistry::CreateTlsKeyLogger(
     // Create a new TlsKeyLogFileWriter instance
     auto new_tls_key_log_file_writer =
         grpc_core::MakeRefCounted<TlsKeyLogFileWriter>(
-                                  tsi_tls_key_log_config.tls_key_log_file_path);
+            tsi_tls_key_log_config.tls_key_log_file_path);
 
     g_tls_key_log_file_writer_map.insert(
         std::pair<std::string, TlsKeyLogFileWriter*>(
@@ -130,17 +131,15 @@ TlsKeyLoggerRegistry::CreateTlsKeyLogger(
 
     // The key logger becomes an owner of the key log file writer
     // instance.
-    auto new_tls_key_logger =
-        grpc_core::MakeRefCounted<TlsKeyLogger>(
-            tsi_tls_key_log_config, std::move(new_tls_key_log_file_writer));
+    auto new_tls_key_logger = grpc_core::MakeRefCounted<TlsKeyLogger>(
+        tsi_tls_key_log_config, std::move(new_tls_key_log_file_writer));
     return new_tls_key_logger;
   }
 
   // The key logger also becomes an owner of the key log file writer
   // instance.
-  auto new_tls_key_logger =
-      grpc_core::MakeRefCounted<TlsKeyLogger>(tsi_tls_key_log_config,
-                                              it->second->Ref());
+  auto new_tls_key_logger = grpc_core::MakeRefCounted<TlsKeyLogger>(
+      tsi_tls_key_log_config, it->second->Ref());
   return new_tls_key_logger;
 #endif
   return nullptr;

@@ -16,6 +16,7 @@
  *
  */
 
+#include <memory>
 #include <string>
 #include <thread>  // NOLINT
 #include <vector>
@@ -24,22 +25,20 @@
 #include "absl/strings/string_view.h"
 #include "gmock/gmock.h"
 #include "gtest/gtest.h"
-#include <grpc++/grpc++.h>
-#include "src/core/lib/gpr/env.h"
-#include "src/core/lib/gpr/tmpfile.h"
-#include "src/proto/grpc/testing/echo.grpc.pb.h"
-#include "test/core/util/test_config.h"
-#include "test/core/util/tls_utils.h"
 
+#include <grpc++/grpc++.h>
 #include <grpc/grpc.h>
 #include <grpc/grpc_security.h>
 #include <grpcpp/security/server_credentials.h>
 #include <grpcpp/security/tls_credentials_options.h>
 #include <grpcpp/support/channel_arguments.h>
 
-#include <memory>
-
+#include "src/core/lib/gpr/env.h"
+#include "src/core/lib/gpr/tmpfile.h"
 #include "src/cpp/client/secure_credentials.h"
+#include "src/proto/grpc/testing/echo.grpc.pb.h"
+#include "test/core/util/test_config.h"
+#include "test/core/util/tls_utils.h"
 
 extern "C" {
 #include <openssl/ssl.h>
@@ -157,7 +156,6 @@ class TlsKeyLoggingEnd2EndTest : public ::testing::TestWithParam<TestScenario> {
   }
 
   void SetUp() override {
-
     ::grpc::ServerBuilder builder;
     ::grpc::ChannelArguments args;
     args.SetSslTargetNameOverride("foo.test.google.com.au");
@@ -382,7 +380,6 @@ INSTANTIATE_TEST_SUITE_P(TlsKeyLogging, TlsKeyLoggingEnd2EndTest,
                                               TestScenario(5, true, true),
                                               TestScenario(5, true, false),
                                               TestScenario(5, false, false)}));
-
 
 }  // namespace
 }  // namespace testing
