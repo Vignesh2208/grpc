@@ -18,33 +18,35 @@
 
 #include <grpc/support/port_platform.h>
 
+#include "src/core/tsi/ssl/key_logging/ssl_key_logging.h"
+
 #include <map>
+
+#include <grpc/support/log.h>
 
 #include "src/core/lib/gprpp/sync.h"
 #include "src/core/lib/iomgr/error.h"
 #include "src/core/lib/slice/slice_internal.h"
-#include "src/core/tsi/ssl/key_logging/ssl_key_logging.h"
-
-#include <grpc/support/log.h>
 
 namespace tsi {
 
 grpc_core::Mutex
-  TlsSessionKeyLoggerRegistry::tls_session_key_logger_registry_mu;
+    TlsSessionKeyLoggerRegistry::tls_session_key_logger_registry_mu;
 std::map<std::string, TlsSessionKeyLogFileWriter*>
     TlsSessionKeyLoggerRegistry::tls_session_key_log_file_writer_map;
 
 TlsSessionKeyLogFileWriter::TlsSessionKeyLogFileWriter(
     const std::string& tls_session_key_log_file_path)
     : fd_(nullptr),
-    tls_session_key_log_file_path_(tls_session_key_log_file_path) {
+      tls_session_key_log_file_path_(tls_session_key_log_file_path) {
   GPR_ASSERT(!tls_session_key_log_file_path_.empty());
   fd_ = fopen(tls_session_key_log_file_path_.c_str(), "w+");
   if (fd_ == nullptr) {
     grpc_error_handle error = GRPC_OS_ERROR(errno, "fopen");
     gpr_log(GPR_ERROR,
             "Ignoring TLS Key logging. ERROR Opening TLS Keylog "
-            "file: %s", grpc_error_std_string(error).c_str());
+            "file: %s",
+            grpc_error_std_string(error).c_str());
   }
 };
 
@@ -93,15 +95,14 @@ void TlsSessionKeyLogFileWriter::AppendSessionKeys(
   }
 }
 
-TlsSessionKeyLogger * TlsSessionKeyLoggerRegistry::CreateTlsSessionKeyLogger(
+TlsSessionKeyLogger* TlsSessionKeyLoggerRegistry::CreateTlsSessionKeyLogger(
     TsiTlsSessionKeyLogConfig tls_session_key_log_config) {
   // To control parallel access to registry
   grpc_core::MutexLock lock(&tls_session_key_logger_registry_mu);
   if (tls_session_key_log_config.tls_session_key_log_file_path().empty()) {
     return nullptr;
   }
-  auto file_path =
-      tls_session_key_log_config.tls_session_key_log_file_path();
+  auto file_path = tls_session_key_log_config.tls_session_key_log_file_path();
   // Check if a TlsSessionKeyLogFileWriter instance already exists for the
   // specified file path.
   auto it = tls_session_key_log_file_writer_map.find(file_path);
@@ -123,16 +124,17 @@ TlsSessionKeyLogger * TlsSessionKeyLoggerRegistry::CreateTlsSessionKeyLogger(
     auto new_tls_session_key_logger =
         grpc_core::MakeRefCounted<TlsSessionKeyLogger>(
             tls_session_key_log_config,
-            std::move(new_tls_session_key_log_file_writer)).release();
+            std::move(new_tls_session_key_log_file_writer))
+            .release();
     return new_tls_session_key_logger;
   }
 
   // The key logger also becomes an owner of the key log file writer
   // instance.
   auto new_tls_session_key_logger =
-      grpc_core::MakeRefCounted<TlsSessionKeyLogger>(
-          tls_session_key_log_config,
-          it->second->Ref()).release();
+      grpc_core::MakeRefCounted<TlsSessionKeyLogger>(tls_session_key_log_config,
+                                                     it->second->Ref())
+          .release();
   return new_tls_session_key_logger;
 }
 

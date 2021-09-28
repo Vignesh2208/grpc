@@ -101,8 +101,8 @@ typedef struct grpc_tls_session_key_logger grpc_tls_session_key_logger;
 
 // Implementation of grpc_tls_session_key_log_config struct defined in
 // grpc_security.h
-struct grpc_tls_session_key_log_config:
-    public grpc_core::RefCounted<grpc_tls_session_key_log_config> {
+struct grpc_tls_session_key_log_config
+    : public grpc_core::RefCounted<grpc_tls_session_key_log_config> {
  public:
   grpc_tls_session_key_log_config() = default;
   void set_tls_session_key_log_file_path(std::string path) {
@@ -227,7 +227,7 @@ struct grpc_tls_credentials_options
   std::string root_cert_name_;
   bool watch_identity_pair_ = false;
   std::string identity_cert_name_;
-  grpc_tls_session_key_logger * tls_session_key_logger_;
+  grpc_tls_session_key_logger* tls_session_key_logger_;
 };
 
 #endif  // GRPC_CORE_LIB_SECURITY_CREDENTIALS_TLS_GRPC_TLS_CREDENTIALS_OPTIONS_H
