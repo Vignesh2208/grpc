@@ -22,8 +22,8 @@
 #include <memory>
 #include <vector>
 
-#include <grpc/grpc_security_constants.h>
 #include <grpc/grpc_security.h>
+#include <grpc/grpc_security_constants.h>
 #include <grpc/status.h>
 #include <grpc/support/log.h>
 #include <grpcpp/security/tls_certificate_provider.h>
@@ -150,7 +150,6 @@ class TlsServerAuthorizationCheckConfig {
 // Configuration for Tls key logging.
 class TlsSessionKeyLoggerConfig {
  public:
-
   TlsSessionKeyLoggerConfig() {
     c_config_ = grpc_tls_session_key_log_config_create();
   };
@@ -161,7 +160,8 @@ class TlsSessionKeyLoggerConfig {
 
   // Disable copy and assignment
   TlsSessionKeyLoggerConfig(const TlsSessionKeyLoggerConfig& copy) = delete;
-  TlsSessionKeyLoggerConfig & operator=(const TlsSessionKeyLoggerConfig&) = delete;
+  TlsSessionKeyLoggerConfig& operator=(const TlsSessionKeyLoggerConfig&) =
+      delete;
 
   // Sets the tls session key log file path.
   void set_tls_session_key_log_file_path(std::string key_log_file_path) {
@@ -179,9 +179,8 @@ class TlsSessionKeyLoggerConfig {
 
   // Returns the core c_config struct associated with this configuration
   // wrapper class
-  grpc_tls_session_key_log_config * c_config() const {
-    return c_config_;
-  }
+  grpc_tls_session_key_log_config* c_config() const { return c_config_; }
+
  private:
   // A TLS session key logging config.
   grpc_tls_session_key_log_config* c_config_;

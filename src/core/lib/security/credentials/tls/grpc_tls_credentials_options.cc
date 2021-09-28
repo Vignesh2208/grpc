@@ -177,30 +177,30 @@ void grpc_tls_server_authorization_check_config_release(
 }
 
 grpc_tls_credentials_options::~grpc_tls_credentials_options() {
- if (tls_session_key_logger_) {
-   reinterpret_cast<tsi::TlsSessionKeyLogger*>(
-       tls_session_key_logger_)->Unref();
- }
+  if (tls_session_key_logger_) {
+    reinterpret_cast<tsi::TlsSessionKeyLogger*>(tls_session_key_logger_)
+        ->Unref();
+  }
 }
 
 void grpc_tls_credentials_options_set_tls_session_key_log_config(
     grpc_tls_credentials_options* options,
     struct grpc_tls_session_key_log_config* config) {
-  if (!tsi_tls_session_key_logging_supported() ||
-      options == nullptr || config == nullptr) {
+  if (!tsi_tls_session_key_logging_supported() || options == nullptr ||
+      config == nullptr) {
     return;
   }
   GRPC_API_TRACE(
-      "grpc_tls_credentials_options_set_tls_session_key_log_config(options=%p)", 1,
-      (options));
+      "grpc_tls_credentials_options_set_tls_session_key_log_config(options=%p)",
+      1, (options));
 
   // Tls session key logging is assumed to be enabled if the specified log
   // file is non-empty.
   if (options->tls_session_key_logger() == nullptr &&
       !config->tls_session_key_log_file_path().empty()) {
-    gpr_log(
-        GPR_INFO, "Enabling TLS session key logging with keys stored at: %s",
-        config->tls_session_key_log_file_path().c_str());
+    gpr_log(GPR_INFO,
+            "Enabling TLS session key logging with keys stored at: %s",
+            config->tls_session_key_log_file_path().c_str());
     auto tls_session_key_logger =
         tsi::TlsSessionKeyLoggerRegistry::CreateTlsSessionKeyLogger(
             config->get_tsi_config());

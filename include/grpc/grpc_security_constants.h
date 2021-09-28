@@ -164,7 +164,7 @@ typedef enum { TLS1_2, TLS1_3 } grpc_tls_version;
 typedef enum {
   /** NSS is the default session key logging format used by browsers like
    * chrome, firefox and by packet capture tools like wireshark.
-  */
+   */
   GRPC_TLS_KEY_LOG_FORMAT_NSS = 0
 } grpc_tls_session_key_log_format;
 

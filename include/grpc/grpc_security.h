@@ -1138,7 +1138,7 @@ typedef struct grpc_tls_session_key_log_config grpc_tls_session_key_log_config;
  * appropriately using the grpc_tls_session_key_log_config_release API
  */
 GRPCAPI grpc_tls_session_key_log_config*
-  grpc_tls_session_key_log_config_create();
+grpc_tls_session_key_log_config_create();
 
 /**
  * EXPERIMENTAL API - Subject to change.
@@ -1162,7 +1162,6 @@ GRPCAPI void grpc_tls_session_key_log_config_set_log_format(
  */
 GRPCAPI void grpc_tls_session_key_log_config_set_log_path(
     grpc_tls_session_key_log_config* config, const char* path);
-
 
 /**
  * EXPERIMENTAL API - Subject to change.
