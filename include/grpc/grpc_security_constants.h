@@ -61,6 +61,11 @@ extern "C" {
    grpc_google_default_credentials_create function. */
 #define GRPC_GOOGLE_CREDENTIALS_ENV_VAR "GOOGLE_APPLICATION_CREDENTIALS"
 
+/** Environment variable that controls whether TLS Key logging is enabled
+   if the corresponding config is set. This must only be used for debugging
+   purposes and never in production. It must be set to a string "true". */
+#define GRPC_TLS_KEY_LOGGING_ENV_VAR "GRPC_TLS_KEY_LOGGING_ENABLED"
+
 /** Results for the SSL roots override callback. */
 typedef enum {
   GRPC_SSL_ROOTS_OVERRIDE_OK,

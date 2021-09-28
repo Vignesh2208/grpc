@@ -1020,6 +1020,10 @@ void tsi_ssl_session_cache_unref(tsi_ssl_session_cache* cache) {
   reinterpret_cast<tsi::SslSessionLRUCache*>(cache)->Unref();
 }
 
+/* --- tsi_ssl_key_logger methods implementation. */
+
+void tsi_tls_key_logger_registry_init() { tsi::TlsKeyLoggerRegistry::Init(); }
+
 /* --- tsi_frame_protector methods implementation. ---*/
 
 static tsi_result ssl_protector_protect(tsi_frame_protector* self,
