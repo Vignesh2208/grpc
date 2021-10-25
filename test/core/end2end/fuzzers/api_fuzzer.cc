@@ -43,7 +43,7 @@
 #include "test/core/end2end/fuzzers/api_fuzzer.pb.h"
 #include "test/core/util/passthru_endpoint.h"
 
-#define MAX_ADVANCE_TIME_MICROS 100000 // 100ms
+#define MAX_ADVANCE_TIME_MICROS 100000  // 100ms
 // Applicable when simulating channel actions. Prevents overflows.
 #define MAX_WAIT_MS 1000
 // Applicable when simulating channel actions. Prevents overflows.
@@ -128,7 +128,8 @@ void my_resolve_address(const char* addr, const char* /*default_port*/,
   r->on_done = on_done;
   r->addrs = addrs;
   grpc_timer_init(
-      &r->timer, MAX_ADVANCE_TIME_MICROS/1000 + grpc_core::ExecCtx::Get()->Now(),
+      &r->timer,
+      MAX_ADVANCE_TIME_MICROS / 1000 + grpc_core::ExecCtx::Get()->Now(),
       GRPC_CLOSURE_CREATE(finish_resolve, r, grpc_schedule_on_exec_ctx));
 }
 
@@ -148,7 +149,8 @@ grpc_ares_request* my_dns_lookup_ares_locked(
   r->addrs = nullptr;
   r->addresses = addresses;
   grpc_timer_init(
-      &r->timer, MAX_ADVANCE_TIME_MICROS/1000 + grpc_core::ExecCtx::Get()->Now(),
+      &r->timer,
+      MAX_ADVANCE_TIME_MICROS / 1000 + grpc_core::ExecCtx::Get()->Now(),
       GRPC_CLOSURE_CREATE(finish_resolve, r, grpc_schedule_on_exec_ctx));
   return nullptr;
 }
@@ -184,10 +186,7 @@ static void do_connect(void* arg, grpc_error_handle error) {
     grpc_passthru_endpoint_create(&client, &server, nullptr, true);
     *fc->ep = client;
     start_scheduling_grpc_passthru_endpoint_channel_effects(
-      client, g_channel_actions,
-      [&](){
-        g_channel_force_delete = true;
-      });
+        client, g_channel_actions, [&]() { g_channel_force_delete = true; });
     grpc_transport* transport = grpc_create_chttp2_transport(
         nullptr, server, false,
         grpc_resource_user_create(g_resource_quota, "transport-user"));
@@ -221,7 +220,8 @@ static void sched_connect(grpc_closure* closure,
   fc->deadline = deadline;
   fc->slice_allocator = slice_allocator;
   grpc_timer_init(
-      &fc->timer, MAX_ADVANCE_TIME_MICROS/1000 + grpc_core::ExecCtx::Get()->Now(),
+      &fc->timer,
+      MAX_ADVANCE_TIME_MICROS / 1000 + grpc_core::ExecCtx::Get()->Now(),
       GRPC_CLOSURE_CREATE(do_connect, fc, grpc_schedule_on_exec_ctx));
 }
 
@@ -236,7 +236,6 @@ static void my_tcp_client_connect(grpc_closure* closure, grpc_endpoint** ep,
 }
 
 grpc_tcp_client_vtable fuzz_tcp_client_vtable = {my_tcp_client_connect};
-
 
 ////////////////////////////////////////////////////////////////////////////////
 // test driver
@@ -292,7 +291,8 @@ class Call : public std::enable_shared_from_this<Call> {
   explicit Call(CallType type) : type_(type) {
     grpc_metadata_array_init(&recv_initial_metadata_);
     grpc_metadata_array_init(&recv_trailing_metadata_);
-    grpc_call_details_init(&call_details_);}
+    grpc_call_details_init(&call_details_);
+  }
   ~Call();
 
   CallType type() const { return type_; }
@@ -520,8 +520,6 @@ class Call : public std::enable_shared_from_this<Call> {
 static std::vector<std::shared_ptr<Call>> g_calls;
 static size_t g_active_call = 0;
 
-
-
 static Call* ActiveCall() {
   while (!g_calls.empty()) {
     if (g_active_call >= g_calls.size()) {
@@ -731,9 +729,7 @@ DEFINE_PROTO_FUZZER(const api_fuzzer::Msg& msg) {
   grpc_completion_queue* cq = grpc_completion_queue_create_for_next(nullptr);
 
   int action_index = 0;
-  auto no_more_actions = [&]() {
-    action_index = msg.actions_size();
-  };
+  auto no_more_actions = [&]() { action_index = msg.actions_size(); };
   auto poll_cq = [&]() -> bool {
     grpc_event ev = grpc_completion_queue_next(
         cq, gpr_inf_past(GPR_CLOCK_REALTIME), nullptr);
@@ -805,9 +801,9 @@ DEFINE_PROTO_FUZZER(const api_fuzzer::Msg& msg) {
       case api_fuzzer::Action::kAdvanceTime: {
         g_now = gpr_time_add(
             g_now, gpr_time_from_micros(
-              std::min(action.advance_time(),
-              (uint32_t)MAX_ADVANCE_TIME_MICROS),
-              GPR_TIMESPAN));
+                       std::min(action.advance_time(),
+                                static_cast<uint32_t>(MAX_ADVANCE_TIME_MICROS)),
+                       GPR_TIMESPAN));
         break;
       }
       // create an insecure channel
@@ -829,19 +825,20 @@ DEFINE_PROTO_FUZZER(const api_fuzzer::Msg& msg) {
                 action.create_channel().target().c_str(), args, nullptr);
           }
           g_channel_actions.clear();
-          for (int i = 0; i <
-            action.create_channel().channel_actions_size(); i++) {
-              g_channel_actions.push_back(
-                {
-                  std::min(action.create_channel().channel_actions(i).wait_ms(),
-                    (uint64_t)MAX_WAIT_MS),
-                  std::min(action.create_channel()
-                    .channel_actions(i).add_n_bytes_writable(),
-                    (uint64_t)MAX_ADD_N_WRITABLE_BYTES),
-                  std::min(action.create_channel()
-                    .channel_actions(i).add_n_bytes_readable(),
-                    (uint64_t)MAX_ADD_N_READABLE_BYTES),
-                });
+          for (int i = 0; i < action.create_channel().channel_actions_size();
+               i++) {
+            g_channel_actions.push_back({
+                std::min(action.create_channel().channel_actions(i).wait_ms(),
+                         static_cast<uint64_t>(MAX_WAIT_MS)),
+                std::min(action.create_channel()
+                             .channel_actions(i)
+                             .add_n_bytes_writable(),
+                         static_cast<uint64_t>(MAX_ADD_N_WRITABLE_BYTES)),
+                std::min(action.create_channel()
+                             .channel_actions(i)
+                             .add_n_bytes_readable(),
+                         static_cast<uint64_t>(MAX_ADD_N_READABLE_BYTES)),
+            });
           }
           GPR_ASSERT(g_channel != nullptr);
           g_channel_force_delete = false;
@@ -986,7 +983,6 @@ DEFINE_PROTO_FUZZER(const api_fuzzer::Msg& msg) {
       }
       // queue some ops on a call
       case api_fuzzer::Action::kQueueBatch: {
-
         auto* active_call = ActiveCall();
         if (active_call == nullptr ||
             active_call->type() == CallType::PENDING_SERVER ||
