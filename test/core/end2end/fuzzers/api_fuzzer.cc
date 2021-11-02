@@ -43,13 +43,13 @@
 #include "test/core/end2end/fuzzers/api_fuzzer.pb.h"
 #include "test/core/util/passthru_endpoint.h"
 
-#define MAX_ADVANCE_TIME_MICROS 24 * 3600 * 365 * 1000000 // 1year
+#define MAX_ADVANCE_TIME_MICROS (24 * 3600 * 365 * 1000000)  // 1year
 // Applicable when simulating channel actions. Prevents overflows.
-#define MAX_WAIT_MS 24 * 3600 * 365 * 1000000
+#define MAX_WAIT_MS (24 * 3600 * 365 * 1000000)
 // Applicable when simulating channel actions. Prevents overflows.
-#define MAX_ADD_N_READABLE_BYTES 2 * 1024 * 1024 * 1024 // 2GB
+#define MAX_ADD_N_READABLE_BYTES (2 * 1024 * 1024 * 1024)  // 2GB
 // Applicable when simulating channel actions. Prevents overflows.
-#define MAX_ADD_N_WRITABLE_BYTES 2 * 1024 * 1024 * 1024 // 2GB
+#define MAX_ADD_N_WRITABLE_BYTES (2 * 1024 * 1024 * 1024)  // 2GB
 
 ////////////////////////////////////////////////////////////////////////////////
 // logging
@@ -184,10 +184,7 @@ static void do_connect(void* arg, grpc_error_handle error) {
     grpc_passthru_endpoint_create(&client, &server, nullptr, true);
     *fc->ep = client;
     start_scheduling_grpc_passthru_endpoint_channel_effects(
-      client, g_channel_actions,
-      [&](){
-        g_channel_force_delete = true;
-      });
+        client, g_channel_actions, [&]() { g_channel_force_delete = true; });
     grpc_transport* transport = grpc_create_chttp2_transport(
         nullptr, server, false,
         grpc_resource_user_create(g_resource_quota, "transport-user"));
@@ -236,7 +233,6 @@ static void my_tcp_client_connect(grpc_closure* closure, grpc_endpoint** ep,
 }
 
 grpc_tcp_client_vtable fuzz_tcp_client_vtable = {my_tcp_client_connect};
-
 
 ////////////////////////////////////////////////////////////////////////////////
 // test driver
@@ -519,8 +515,6 @@ class Call : public std::enable_shared_from_this<Call> {
 static std::vector<std::shared_ptr<Call>> g_calls;
 static size_t g_active_call = 0;
 
-
-
 static Call* ActiveCall() {
   while (!g_calls.empty()) {
     if (g_active_call >= g_calls.size()) {
@@ -733,9 +727,7 @@ DEFINE_PROTO_FUZZER(const api_fuzzer::Msg& msg) {
   grpc_completion_queue* cq = grpc_completion_queue_create_for_next(nullptr);
 
   int action_index = 0;
-  auto no_more_actions = [&]() {
-    action_index = msg.actions_size();
-  };
+  auto no_more_actions = [&]() { action_index = msg.actions_size(); };
   auto poll_cq = [&]() -> bool {
     grpc_event ev = grpc_completion_queue_next(
         cq, gpr_inf_past(GPR_CLOCK_REALTIME), nullptr);
@@ -808,7 +800,7 @@ DEFINE_PROTO_FUZZER(const api_fuzzer::Msg& msg) {
         g_now = gpr_time_add(
             g_now, gpr_time_from_micros(
               std::min(action.advance_time(),
-              (uint32_t)MAX_ADVANCE_TIME_MICROS),
+              static_cast<uint32_t>(MAX_ADVANCE_TIME_MICROS),
               GPR_TIMESPAN));
         break;
       }
@@ -831,18 +823,18 @@ DEFINE_PROTO_FUZZER(const api_fuzzer::Msg& msg) {
                 action.create_channel().target().c_str(), args, nullptr);
           }
           g_channel_actions.clear();
-          for (int i = 0; i <
-            action.create_channel().channel_actions_size(); i++) {
+          for (int i = 0; i < action.create_channel().channel_actions_size();
+               i++) {
               g_channel_actions.push_back(
                 {
                   std::min(action.create_channel().channel_actions(i).wait_ms(),
-                    (uint64_t)MAX_WAIT_MS),
+                    static_cast<uint64_t>(MAX_WAIT_MS),
                   std::min(action.create_channel()
                     .channel_actions(i).add_n_bytes_writable(),
-                    (uint64_t)MAX_ADD_N_WRITABLE_BYTES),
+                    static_cast<uint64_t>(MAX_ADD_N_WRITABLE_BYTES),
                   std::min(action.create_channel()
                     .channel_actions(i).add_n_bytes_readable(),
-                    (uint64_t)MAX_ADD_N_READABLE_BYTES),
+                    static_cast<uint64_t>(MAX_ADD_N_READABLE_BYTES),
                 });
           }
           GPR_ASSERT(g_channel != nullptr);
@@ -988,7 +980,6 @@ DEFINE_PROTO_FUZZER(const api_fuzzer::Msg& msg) {
       }
       // queue some ops on a call
       case api_fuzzer::Action::kQueueBatch: {
-
         auto* active_call = ActiveCall();
         if (active_call == nullptr ||
             active_call->type() == CallType::PENDING_SERVER ||
