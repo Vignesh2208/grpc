@@ -1,4 +1,4 @@
-# Copyright 2019 gRPC authors.
+# Copyright 2021 the gRPC authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,17 +12,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from fetch_data import fetch
-import webapp2
+licenses(["notice"])
 
+cc_binary(
+    name = "client",
+    srcs = ["client.cc"],
+    deps = [
+        "//:grpc++",
+        "//examples/protos:helloworld_cc_grpc",
+    ],
+)
 
-class DailyCron(webapp2.RequestHandler):
-
-    def get(self):
-        fetch()
-        self.response.status = 204
-
-
-app = webapp2.WSGIApplication([
-    ('/daily', DailyCron),
-], debug=True)
+cc_binary(
+    name = "server",
+    srcs = ["server.cc"],
+    deps = [
+        "//:grpc++",
+        "//:grpc++_reflection",
+        "//examples/protos:helloworld_cc_grpc",
+    ],
+)
