@@ -850,8 +850,7 @@ DEFINE_PROTO_FUZZER(const api_fuzzer::Msg& msg) {
             const api_fuzzer::ChannelAction& channel_action =
                 action.create_channel().channel_actions(i);
             g_channel_actions.push_back({
-                std::min(channel_action.wait_ms(),
-                         max_wait_ms),
+                std::min(channel_action.wait_ms(), max_wait_ms),
                 std::min(channel_action.add_n_bytes_writable(),
                          max_add_n_writable_bytes),
                 std::min(channel_action.add_n_bytes_readable(),
