@@ -25,8 +25,8 @@
 
 #include <grpc/grpc_security_constants.h>
 
-#include "src/core/tsi/transport_security_interface.h"
 #include "src/core/tsi/ssl/key_logging/ssl_key_logging.h"
+#include "src/core/tsi/transport_security_interface.h"
 
 extern "C" {
 #include <openssl/x509.h>
