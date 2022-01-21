@@ -1150,8 +1150,10 @@ RefCountedPtr<LoadBalancingPolicy::Config> ChooseLbPolicy(
                                                 GRPC_ARG_LB_POLICY_NAME);
     if (!LoadBalancingPolicyRegistry::LoadBalancingPolicyExists(policy_name,
                                                                 nullptr)) {
-      gpr_log(GPR_ERROR, "grpc.lb_policy_name: %s passed through "
-              "channel_args is unsupported!", policy_name);
+      gpr_log(GPR_ERROR,
+              "grpc.lb_policy_name: %s passed through "
+              "channel_args is unsupported!",
+              policy_name);
       gpr_log(GPR_ERROR, "Using pick_first lb_policy instead");
       policy_name = "pick_first";
     }
