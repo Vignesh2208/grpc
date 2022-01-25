@@ -874,19 +874,19 @@ grpc_cc_test(
 grpc_cc_test(
     name = "tls_key_export_test",
     srcs = ["tls_key_export_test.cc"],
-    data = [
-        "//src/core/tsi/test_creds:ca.pem",
-        "//src/core/tsi/test_creds:client.key",
-        "//src/core/tsi/test_creds:client.pem",
-        "//src/core/tsi/test_creds:server0.key",
-        "//src/core/tsi/test_creds:server0.pem",
-    ],
     args = [
         "--ca_cert=$(location //src/core/tsi/test_creds:ca.pem)",
         "--client_private_key=$(location //src/core/tsi/test_creds:client.key)",
         "--server_private_key=$(location //src/core/tsi/test_creds:server0.key)",
         "--client_cert=$(location //src/core/tsi/test_creds:client.pem)",
         "--server_cert=$(location //src/core/tsi/test_creds:server0.pem)",
+    ],
+    data = [
+        "//src/core/tsi/test_creds:ca.pem",
+        "//src/core/tsi/test_creds:client.key",
+        "//src/core/tsi/test_creds:client.pem",
+        "//src/core/tsi/test_creds:server0.key",
+        "//src/core/tsi/test_creds:server0.pem",
     ],
     external_deps = [
         "gtest",

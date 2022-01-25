@@ -8052,6 +8052,12 @@ targets:
   - test/cpp/end2end/tls_key_export_test.cc
   deps:
   - grpc++_test_util
+  args:
+  - --ca_cert=$(location //src/core/tsi/test_creds:ca.pem)
+  - --client_private_key=$(location //src/core/tsi/test_creds:client.key)
+  - --server_private_key=$(location //src/core/tsi/test_creds:server0.key)
+  - --client_cert=$(location //src/core/tsi/test_creds:client.pem)
+  - --server_cert=$(location //src/core/tsi/test_creds:server0.pem)
 - name: tls_security_connector_test
   gtest: true
   build: test
