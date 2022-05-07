@@ -21,9 +21,9 @@
 #include <stdint.h>
 #include <string.h>
 
-#include <grpc/event_engine/memory_allocator.h>
 #include <utility>
 
+#include <grpc/event_engine/memory_allocator.h>
 #include <grpc/slice.h>
 #include <grpc/slice_buffer.h>
 #include <grpc/support/alloc.h>
