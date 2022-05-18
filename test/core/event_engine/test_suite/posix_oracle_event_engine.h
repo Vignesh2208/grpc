@@ -40,7 +40,7 @@ class PosixOracleEndpoint : public EventEngine::Endpoint {
  public:
   explicit PosixOracleEndpoint(int socket_fd);
   static std::unique_ptr<PosixOracleEndpoint> Create(int socket_fd);
-  ~PosixOracleEndpoint();
+  ~PosixOracleEndpoint() override;
   void Read(std::function<void(absl::Status)> on_read, SliceBuffer* buffer,
             const ReadArgs* args) override;
   void Write(std::function<void(absl::Status)> on_writable, SliceBuffer* data,
@@ -120,7 +120,7 @@ class PosixOracleListener : public EventEngine::Listener {
       EventEngine::Listener::AcceptCallback on_accept,
       std::function<void(absl::Status)> on_shutdown,
       std::unique_ptr<MemoryAllocatorFactory> memory_allocator_factory);
-  ~PosixOracleListener();
+  ~PosixOracleListener() override;
   absl::StatusOr<int> Bind(const EventEngine::ResolvedAddress& addr) override;
   absl::Status Start() override;
 

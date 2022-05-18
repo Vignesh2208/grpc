@@ -41,7 +41,7 @@ namespace experimental {
 
 namespace {
 
-static const char* kStopMessage = "STOP";
+const char* kStopMessage = "STOP";
 
 grpc_resolved_address CreateGRPCResolvedAddress(
     const EventEngine::ResolvedAddress& ra) {

@@ -16,9 +16,9 @@
 #define GRPC_TEST_CORE_EVENT_ENGINE_TEST_SUITE_EVENT_ENGINE_TEST_UTILS_H_
 
 #include <functional>
+#include <map>
 #include <memory>
 #include <string>
-#include <map>
 #include <utility>
 
 #include "absl/status/status.h"
@@ -109,7 +109,7 @@ class ConnectionManager {
 
   class Connection {
    public:
-    Connection(int connection_id) : connection_id_(connection_id) {}
+    explicit Connection(int connection_id) : connection_id_(connection_id) {}
     ~Connection() = default;
 
     void SetClientEndpoint(
