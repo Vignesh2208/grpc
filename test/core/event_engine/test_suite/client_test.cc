@@ -42,9 +42,9 @@ using ::grpc_event_engine::experimental::EventEngine;
 using ::grpc_event_engine::experimental::Promise;
 using ::grpc_event_engine::experimental::URIToResolvedAddress;
 using ChannelArgsEndpointConfig =
-    ::grpc_event_engine::experimental::ChannelArgsEndpointConfig;
+    grpc_event_engine::experimental::ChannelArgsEndpointConfig;
 using ResolvedAddress =
-    ::grpc_event_engine::experimental::EventEngine::ResolvedAddress;
+    grpc_event_engine::experimental::EventEngine::ResolvedAddress;
 using Endpoint = ::grpc_event_engine::experimental::EventEngine::Endpoint;
 using Listener = ::grpc_event_engine::experimental::EventEngine::Listener;
 
