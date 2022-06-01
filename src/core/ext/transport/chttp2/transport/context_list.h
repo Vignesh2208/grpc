@@ -22,6 +22,9 @@
 #include <grpc/support/port_platform.h>
 
 #include <stddef.h>
+#include <stdint.h>
+
+#include <functional>
 
 #include "src/core/ext/transport/chttp2/transport/frame.h"
 #include "src/core/lib/iomgr/buffer_list.h"
