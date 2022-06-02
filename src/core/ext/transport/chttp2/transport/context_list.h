@@ -21,7 +21,7 @@
 
 #include <grpc/support/port_platform.h>
 
-#include <stddef.h>
+#include <stdint.h>
 
 #include <grpc/event_engine/trace_context_list.h>
 
