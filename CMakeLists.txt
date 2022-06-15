@@ -10855,6 +10855,7 @@ add_executable(fuzzing_event_engine_test
   ${_gRPC_PROTO_GENS_DIR}/test/core/event_engine/fuzzing_event_engine/fuzzing_event_engine.grpc.pb.h
   test/core/event_engine/fuzzing_event_engine/fuzzing_event_engine.cc
   test/core/event_engine/test_suite/event_engine_test.cc
+  test/core/event_engine/test_suite/event_engine_test_utils.cc
   test/core/event_engine/test_suite/fuzzing_event_engine_test.cc
   test/core/event_engine/test_suite/timer_test.cc
   third_party/googletest/googletest/src/gtest-all.cc
