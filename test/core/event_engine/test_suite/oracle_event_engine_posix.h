@@ -174,16 +174,14 @@ class PosixOracleEventEngine final : public EventEngine {
   void Run(std::function<void()> /*closure*/) override {
     GPR_ASSERT(false && "unimplemented");
   }
-  TaskHandle RunAt(absl::Time /*when*/, Closure* /*closure*/) override {
-    GPR_ASSERT(false && "unimplemented");
-  }
-  TaskHandle RunAt(absl::Time /*when*/,
-                   std::function<void()> /*closure*/) override {
-    GPR_ASSERT(false && "unimplemented");
-  }
-  bool Cancel(TaskHandle /*handle*/) override {
-    GPR_ASSERT(false && "unimplemented");
-  }
+  TaskHandle RunAt(absl::Time /*when*/, Closure* /*closure*/)
+      _ASSERT(false && "unimplemented");
+} TaskHandle RunAt(absl::Time /*when*/, std::function<void()> /*closure*/) {
+    GPRalse && "unimplemented");
+}
+bool Cancel(TaskHandle /*handle*/) override {
+  GPR_ASSERT(false && "unimplemented");
+}
 };
 
 }  // namespace experimental
