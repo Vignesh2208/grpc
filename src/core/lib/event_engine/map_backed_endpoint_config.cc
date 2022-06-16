@@ -15,14 +15,11 @@
 
 #include "src/core/lib/event_engine/map_backed_endpoint_config.h"
 
-#include <string>
+#include <utility>
 
 #include "absl/types/variant.h"
 
 #include <grpc/event_engine/endpoint_config.h>
-#include <grpc/impl/codegen/grpc_types.h>
-
-#include "src/core/lib/channel/channel_args.h"
 
 namespace grpc_event_engine {
 namespace experimental {
