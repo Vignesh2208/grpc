@@ -32,7 +32,7 @@ class EndpointConfig {
  public:
   class OptionsAccessor;
   EndpointConfig();
-  EndpointConfig(std::shared_ptr<OptionsAccessor> impl);
+  explicit EndpointConfig(std::shared_ptr<OptionsAccessor> impl);
   ~EndpointConfig();
   // Assignment Operator and Copy Constructor
   EndpointConfig(const EndpointConfig& other);

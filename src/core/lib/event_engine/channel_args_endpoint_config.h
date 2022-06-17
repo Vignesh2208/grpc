@@ -16,7 +16,10 @@
 
 #include <grpc/support/port_platform.h>
 
+#include <string>
+
 #include "absl/strings/string_view.h"
+#include "absl/types/variant.h"
 
 #include <grpc/event_engine/endpoint_config.h>
 #include <grpc/impl/codegen/grpc_types.h>
@@ -28,8 +31,8 @@ namespace experimental {
 
 class EndpointConfig::OptionsAccessor {
  public:
-  OptionsAccessor(const grpc_core::ChannelArgs& args) : args_(args) {}
-  OptionsAccessor(const grpc_channel_args* args)
+  explicit OptionsAccessor(const grpc_core::ChannelArgs& args) : args_(args) {}
+  explicit OptionsAccessor(const grpc_channel_args* args)
       : args_(grpc_core::ChannelArgs::FromC(args)) {}
   EndpointConfig::Setting Get(absl::string_view key) const {
     auto value = args_.Get(key);
