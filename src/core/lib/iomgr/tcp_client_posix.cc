@@ -340,8 +340,7 @@ static int64_t tcp_connect(grpc_closure* closure, grpc_endpoint** ep,
     return 0;
   }
   grpc_tcp_client_create_from_prepared_fd(interested_parties, closure, fd,
-                                          config, &mapped_addr, deadline,
-                                          ep);
+                                          config, &mapped_addr, deadline, ep);
   return 0;
 }
 
