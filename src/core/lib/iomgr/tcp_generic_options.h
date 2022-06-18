@@ -47,7 +47,7 @@ typedef struct grpc_tcp_generic_options {
     resource_quota = other.resource_quota;
     return *this;
   }
-  grpc_tcp_generic_options(struct grpc_tcp_generic_options&& other) {
+  grpc_tcp_generic_options(struct grpc_tcp_generic_options&& other) noexcept {
     socket_mutator = other.socket_mutator;
     other.socket_mutator = nullptr;
     resource_quota = std::move(other.resource_quota);
