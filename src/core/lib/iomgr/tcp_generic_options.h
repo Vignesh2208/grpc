@@ -34,7 +34,7 @@ typedef struct grpc_tcp_generic_options {
   grpc_tcp_generic_options()
       : resource_quota(nullptr), socket_mutator(nullptr) {}
   // Move ctor
-  grpc_tcp_generic_options(struct grpc_tcp_generic_options&& other) {
+  grpc_tcp_generic_options(struct grpc_tcp_generic_options&& other) noexcept {
     socket_mutator = other.socket_mutator;
     other.socket_mutator = nullptr;
     resource_quota = other.resource_quota;
@@ -42,7 +42,8 @@ typedef struct grpc_tcp_generic_options {
     int_options = other.int_options;
   }
   // Move assignment
-  grpc_tcp_generic_options& operator=(struct grpc_tcp_generic_options&& other) {
+  grpc_tcp_generic_options& operator=(
+      struct grpc_tcp_generic_options&& other) noexcept {
     if (socket_mutator != nullptr) {
       grpc_socket_mutator_unref(socket_mutator);
     }
