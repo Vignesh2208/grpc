@@ -16,7 +16,11 @@
 
 #include <grpc/support/port_platform.h>
 
+#include <memory>
+#include <string>
+
 #include "absl/strings/string_view.h"
+#include "absl/types/variant.h"
 
 #include <grpc/event_engine/endpoint_config.h>
 #include <grpc/impl/codegen/grpc_types.h>
