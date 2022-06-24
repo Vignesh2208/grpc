@@ -15,8 +15,9 @@
 
 #include "src/core/lib/event_engine/channel_args_endpoint_config.h"
 
-#include <string>
+#include <utility>
 
+#include "absl/memory/memory.h"
 #include "absl/types/variant.h"
 
 #include <grpc/event_engine/endpoint_config.h>
