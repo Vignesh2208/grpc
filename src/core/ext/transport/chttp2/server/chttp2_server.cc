@@ -70,7 +70,6 @@
 #include "src/core/lib/iomgr/pollset_set.h"
 #include "src/core/lib/iomgr/resolve_address.h"
 #include "src/core/lib/iomgr/resolved_address.h"
-#include "src/core/lib/iomgr/tcp_generic_options.h"
 #include "src/core/lib/iomgr/tcp_server.h"
 #include "src/core/lib/iomgr/timer.h"
 #include "src/core/lib/iomgr/unix_sockets_posix.h"
@@ -94,7 +93,6 @@
 #include "src/core/lib/iomgr/ev_posix.h"
 #include "src/core/lib/iomgr/exec_ctx.h"
 #include "src/core/lib/iomgr/tcp_client_posix.h"
-#include "src/core/lib/iomgr/tcp_posix.h"
 #endif  // GPR_SUPPORT_CHANNELS_FROM_FD
 
 namespace grpc_core {

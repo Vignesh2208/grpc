@@ -357,7 +357,7 @@ using grpc_core::TcpZerocopySendRecord;
 
 namespace {
 struct grpc_tcp {
-  grpc_tcp(const TcpGenericOptions& tcp_options)
+  explicit grpc_tcp(const TcpGenericOptions& tcp_options)
       : options(tcp_options),
         tcp_zerocopy_send_ctx(options.tcp_tx_zerocopy_max_simultaneous_sends,
                               options.tcp_tx_zerocopy_send_bytes_threshold) {}
