@@ -22,6 +22,7 @@
 
 #include <stdint.h>
 
+#include <memory>
 #include <string>
 
 #include "absl/container/inlined_vector.h"
@@ -55,7 +56,6 @@
 #include "src/core/lib/iomgr/endpoint.h"
 #include "src/core/lib/iomgr/exec_ctx.h"
 #include "src/core/lib/iomgr/resolved_address.h"
-#include "src/core/lib/iomgr/tcp_generic_options.h"
 #include "src/core/lib/resolver/resolver_registry.h"
 #include "src/core/lib/security/credentials/credentials.h"
 #include "src/core/lib/security/credentials/insecure/insecure_credentials.h"

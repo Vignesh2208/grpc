@@ -17,6 +17,7 @@
 
 #include <string>
 
+#include "absl/memory/memory.h"
 #include "absl/types/variant.h"
 
 #include <grpc/event_engine/endpoint_config.h>
