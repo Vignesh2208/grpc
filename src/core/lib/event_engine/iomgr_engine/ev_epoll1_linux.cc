@@ -46,9 +46,6 @@
 
 #include "absl/synchronization/mutex.h"
 
-#include <grpc/event_engine/event_engine.h>
-#include <grpc/support/alloc.h>
-
 #include "src/core/lib/event_engine/iomgr_engine/closure.h"
 #include "src/core/lib/event_engine/iomgr_engine/event_poller.h"
 #include "src/core/lib/event_engine/iomgr_engine/lockfree_event.h"
