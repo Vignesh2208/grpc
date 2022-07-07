@@ -2361,7 +2361,6 @@ grpc_cc_library(
     external_deps = ["absl/status"],
     tags = ["grpc-autodeps"],
     deps = [
-        "event_engine_base_hdrs",
         "gpr_base",
         "iomgr_ee_poller_common_hdrs",
         "status_helper",
@@ -2442,14 +2441,15 @@ grpc_cc_library(
         "src/core/lib/event_engine/iomgr_engine/ev_epoll1_linux.h",
     ],
     external_deps = [
+        "absl/base:core_headers",
         "absl/memory",
+        "absl/status",
         "absl/status:statusor",
         "absl/strings",
         "absl/synchronization",
     ],
     tags = ["grpc-autodeps"],
     deps = [
-        "event_engine_base_hdrs",
         "gpr_base",
         "gpr_codegen",
         "gpr_platform",
@@ -2470,13 +2470,15 @@ grpc_cc_library(
         "src/core/lib/event_engine/iomgr_engine/ev_poll_posix.h",
     ],
     external_deps = [
+        "absl/base:core_headers",
+        "absl/status",
         "absl/status:statusor",
         "absl/strings",
         "absl/synchronization",
+        "absl/utility",
     ],
     tags = ["grpc-autodeps"],
     deps = [
-        "event_engine_base_hdrs",
         "gpr_base",
         "gpr_codegen",
         "gpr_platform",

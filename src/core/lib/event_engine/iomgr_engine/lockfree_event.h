@@ -19,10 +19,10 @@
 
 #include <grpc/support/port_platform.h>
 
-#include "absl/status/status.h"
+#include <atomic>
+#include <cstdint>
 
-#include <grpc/event_engine/event_engine.h>
-#include <grpc/support/atm.h>
+#include "absl/status/status.h"
 
 #include "src/core/lib/event_engine/iomgr_engine/closure.h"
 
