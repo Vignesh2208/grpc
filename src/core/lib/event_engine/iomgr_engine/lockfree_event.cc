@@ -16,11 +16,14 @@
 
 #include "src/core/lib/event_engine/iomgr_engine/lockfree_event.h"
 
+#include <stdlib.h>
+
 #include <atomic>
 #include <cstdint>
 
 #include "absl/status/status.h"
 
+#include <grpc/support/atm.h>
 #include <grpc/support/log.h>
 
 #include "src/core/lib/event_engine/iomgr_engine/closure.h"
