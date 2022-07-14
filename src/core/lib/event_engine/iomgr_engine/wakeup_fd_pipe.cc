@@ -36,8 +36,6 @@
 #include "src/core/lib/event_engine/iomgr_engine/wakeup_fd_posix.h"
 #endif
 
-#include "src/core/lib/event_engine/iomgr_engine/wakeup_fd_pipe.h"
-
 namespace grpc_event_engine {
 namespace iomgr_engine {
 
