@@ -2517,13 +2517,15 @@ grpc_cc_library(
         "src/core/lib/event_engine/iomgr_engine/ev_poll_posix.h",
     ],
     external_deps = [
+        "absl/base:core_headers",
+        "absl/status",
         "absl/status:statusor",
         "absl/strings",
         "absl/synchronization",
+        "absl/utility",
     ],
     tags = ["grpc-autodeps"],
     deps = [
-        "event_engine_base_hdrs",
         "gpr_base",
         "gpr_codegen",
         "gpr_platform",
