@@ -2463,14 +2463,22 @@ grpc_cc_library(
     hdrs = [
         "src/core/lib/event_engine/iomgr_engine/tcp_posix_socket_utils.h",
     ],
-    external_deps = ["absl/status"],
+    external_deps = [
+        "absl/status",
+        "absl/status:statusor",
+        "absl/strings",
+        "absl/types:variant",
+        "absl/utility",
+    ],
     deps = [
         "event_engine_base_hdrs",
         "gpr_base",
         "grpc_codegen",
         "iomgr_port",
+        "ref_counted_ptr",
         "resource_quota",
         "socket_mutator",
+        "useful",
     ],
 )
 
