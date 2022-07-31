@@ -2332,6 +2332,7 @@ grpc_cc_library(
         "src/core/lib/event_engine/iomgr_engine/event_poller.h",
     ],
     external_deps = [
+        "absl/functional:any_invocable",
         "absl/status",
         "absl/strings",
     ],
@@ -2352,6 +2353,8 @@ grpc_cc_library(
     external_deps = [
         "absl/functional:any_invocable",
         "absl/status",
+        "absl/synchronization",
+        "absl/types:variant",
         "absl/utility",
     ],
     deps = [
