@@ -2560,7 +2560,6 @@ grpc_cc_library(
     ],
     deps = [
         "gpr_base",
-        "gpr_codegen",
         "iomgr_port",
     ],
 )
