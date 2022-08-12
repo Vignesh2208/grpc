@@ -26,7 +26,6 @@
 #include <time.h>
 
 #ifdef GRPC_LINUX_ERRQUEUE
-#include <linux/errqueue.h>
 #include <sys/socket.h>
 #endif /* GRPC_LINUX_ERRQUEUE */
 

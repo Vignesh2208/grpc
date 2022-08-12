@@ -16,6 +16,13 @@
 
 #include "src/core/lib/event_engine/posix_engine/traced_buffer_list.h"
 
+#include <linux/errqueue.h>
+#include <stddef.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <time.h>
+
 #include <utility>
 
 #include "absl/functional/any_invocable.h"
