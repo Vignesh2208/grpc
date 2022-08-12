@@ -2513,7 +2513,6 @@ grpc_cc_library(
         "event_engine_poller",
         "event_engine_time_util",
         "gpr",
-        "gpr_codegen",
         "iomgr_port",
         "posix_event_engine_closure",
         "posix_event_engine_event_poller",
