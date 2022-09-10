@@ -18,6 +18,7 @@
 #include <errno.h>
 #include <inttypes.h>
 #include <limits.h>
+#include <netinet/in.h>
 
 #include "absl/strings/str_cat.h"
 #include "absl/strings/string_view.h"
