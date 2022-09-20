@@ -85,7 +85,8 @@ TEST_F(EventEngineTimerTest, ImmediateCallbackIsExecutedQuickly) {
 // }
 
 // TEST_F(EventEngineTimerTest, TimersRespectScheduleOrdering) {
-//   // Note: this is a brittle test if the first call to `RunAfter` takes longer
+//   // Note: this is a brittle test if the first call to `RunAfter` takes
+//   longer
 //   // than the second callback's wait time.
 //   std::vector<uint8_t> ordered;
 //   uint8_t count = 0;
@@ -109,11 +110,12 @@ TEST_F(EventEngineTimerTest, ImmediateCallbackIsExecutedQuickly) {
 //       cv_.WaitWithTimeout(&mu_, absl::Milliseconds(8));
 //     }
 //   }
-//   // The engine is deleted, and all closures should have been flushed beforehand
-//   ASSERT_THAT(ordered, ElementsAre(1, 2));
+//   // The engine is deleted, and all closures should have been flushed
+//   beforehand ASSERT_THAT(ordered, ElementsAre(1, 2));
 // }
 
-// TEST_F(EventEngineTimerTest, CancellingExecutedCallbackIsNoopAndReturnsFalse) {
+// TEST_F(EventEngineTimerTest, CancellingExecutedCallbackIsNoopAndReturnsFalse)
+// {
 //   auto engine = this->NewEventEngine();
 //   grpc_core::MutexLock lock(&mu_);
 //   auto handle = engine->RunAfter(0ms, [this]() {
@@ -175,7 +177,8 @@ TEST_F(EventEngineTimerTest, ImmediateCallbackIsExecutedQuickly) {
 //   while (!signaled_) {
 //     cv_.Wait(&mu_);
 //   }
-//   gpr_log(GPR_DEBUG, "failed timer count: %d of %d", failed_call_count.load(),
+//   gpr_log(GPR_DEBUG, "failed timer count: %d of %d",
+//   failed_call_count.load(),
 //           thread_count * call_count);
 //   ASSERT_EQ(0, failed_call_count.load());
 // }
