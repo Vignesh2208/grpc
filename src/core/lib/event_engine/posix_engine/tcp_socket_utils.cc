@@ -940,8 +940,7 @@ PosixSocketWrapper::CreateDualStackSocket(
   GPR_ASSERT(false && "unimplemented");
 }
 
-absl::StatusOr<PosixSocketCreateResult>
-CreateAndPrepareTcpClientSocket(
+absl::StatusOr<PosixSocketCreateResult> CreateAndPrepareTcpClientSocket(
     const PosixTcpOptions& /*options*/,
     const EventEngine::ResolvedAddress& /*target_addr*/) {
   GPR_ASSERT(false && "unimplemented");
