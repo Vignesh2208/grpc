@@ -8354,6 +8354,10 @@ targets:
   - test/core/event_engine/test_suite/timer_test.cc
   deps:
   - grpc_test_util
+  platforms:
+  - linux
+  - posix
+  - mac
 - name: promise_factory_test
   gtest: true
   build: test
