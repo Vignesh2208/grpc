@@ -2876,6 +2876,7 @@ grpc_cc_library(
         "event_engine_utils",
         "gpr",
         "grpc_trace",
+        "iomgr_port",
         "posix_event_engine_closure",
         "posix_event_engine_endpoint",
         "posix_event_engine_event_poller",
