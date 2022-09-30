@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#include <grpc/support/port_platform.h>
+
 #include "src/core/lib/event_engine/posix_engine/posix_engine_listener_utils.h"
 
 #include <ifaddrs.h>
@@ -35,7 +37,7 @@ namespace posix_engine {
 namespace {
 
 using ResolvedAddress =
-    ::grpc_event_engine::experimental::EventEngine::ResolvedAddress;
+    grpc_event_engine::experimental::EventEngine::ResolvedAddress;
 
 #ifdef GRPC_HAVE_IFADDRS
 
