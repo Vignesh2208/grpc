@@ -1258,8 +1258,8 @@ std::unique_ptr<PosixEndpoint> CreatePosixEndpoint(
     std::shared_ptr<EventEngine> engine, MemoryAllocator&& allocator,
     const PosixTcpOptions& options) {
   GPR_DEBUG_ASSERT(handle != nullptr);
-  return std::make_unique<PosixEndpoint>(
-      handle, on_shutdown, std::move(engine), std::move(allocator), options);
+  return std::make_unique<PosixEndpoint>(handle, on_shutdown, std::move(engine),
+                                         std::move(allocator), options);
 }
 
 }  // namespace posix_engine
