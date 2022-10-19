@@ -7046,7 +7046,6 @@ grpc_cc_library(
         "src/core/ext/transport/chttp2/transport/http2_settings.h",
     ],
     deps = [
-        "gpr_platform",
         "http2_errors",
         "useful",
     ],
