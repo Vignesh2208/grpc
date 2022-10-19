@@ -61,7 +61,7 @@ void AdvanceClockMillis(uint64_t millis) {
 }
 
 class TransportTargetWindowEstimatesMocker
-    : public grpc_core::chttp2::TestOnlyTransportTargetWindowEstimatesMocker {
+    : public chttp2::TestOnlyTransportTargetWindowEstimatesMocker {
  public:
   explicit TransportTargetWindowEstimatesMocker() {}
 
@@ -139,14 +139,13 @@ TEST(FlowControl, PeriodicUpdate) {
     AdvanceClockMillis(10);
     next_ping = bdp->CompletePing();
     FlowControlAction action = tfc.PeriodicUpdate();
-    if (grpc_core::IsTcpFrameSizeTuningEnabled() &&
-        grpc_core::IsPeerStateBasedFramingEnabled()) {
+    if (IsTcpFrameSizeTuningEnabled() && IsPeerStateBasedFramingEnabled()) {
       if (action.send_max_frame_size_update() !=
           FlowControlAction::Urgency::NO_ACTION_NEEDED) {
         prev_max_frame_size = action.max_frame_size();
       }
       EXPECT_EQ(action.preferred_rx_frame_size(),
-                grpc_core::Clamp(2 * prev_max_frame_size, 16384u, 16777215u));
+                Clamp(2 * prev_max_frame_size, 16384u, 16777215u));
       EXPECT_TRUE(action.preferred_rx_frame_size_update() !=
                   FlowControlAction::Urgency::NO_ACTION_NEEDED);
     } else {
