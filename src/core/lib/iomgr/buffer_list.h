@@ -121,7 +121,7 @@ class TracedBufferList {
                         struct cmsghdr* opt_stats,
                         struct scm_timestamping* tss);
   int Size() {
-    grpc_core::MutexLock lock(&mu_);
+    MutexLock lock(&mu_);
     return buffer_list_.size();
   }
   // Cleans the list by calling the callback for each traced buffer in the list
@@ -139,7 +139,7 @@ class TracedBufferList {
     void* arg_;       /* The arg to pass to timestamps_callback */
     Timestamps ts_;   /* The timestamps corresponding to this buffer */
   };
-  grpc_core::Mutex mu_;
+  Mutex mu_;
   // TracedBuffers are ordered by sequence number and would need to be processed
   // in a FIFO order starting with the smallest sequence number. To enable this,
   // they are stored in a std::list which allows easy appends and forward
