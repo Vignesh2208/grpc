@@ -20,8 +20,8 @@
 
 #include <gtest/gtest.h>
 
-#include "grpc/support/time.h"
 #include <grpc/grpc.h>
+#include <grpc/support/time.h>
 
 #include "src/core/lib/gpr/useful.h"
 #include "src/core/lib/gprpp/global_config.h"
