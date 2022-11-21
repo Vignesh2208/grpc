@@ -21,8 +21,8 @@
 #include "absl/status/status.h"
 #include "absl/strings/string_view.h"
 
-#include <grpc/impl/codegen/slice.h>
 #include <grpc/event_engine/event_engine.h>
+#include <grpc/impl/codegen/slice.h>
 #include <grpc/slice.h>
 #include <grpc/slice_buffer.h>
 #include <grpc/support/log.h>
