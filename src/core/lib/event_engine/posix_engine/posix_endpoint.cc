@@ -1196,7 +1196,7 @@ PosixEndpointImpl::PosixEndpointImpl(EventHandle* handle,
       gpr_log(
           GPR_ERROR,
           "Tx zero-copy will not be used by gRPC since RLIMIT_MEMLOCK value is "
-              "not set. Consider raising its value with setrlimit().");
+          "not set. Consider raising its value with setrlimit().");
     } else if (GetUlimitHardMemLock() == 0) {
       zerocopy_enabled = false;
       gpr_log(GPR_ERROR,
