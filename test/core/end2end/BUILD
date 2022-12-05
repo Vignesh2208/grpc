@@ -58,6 +58,7 @@ grpc_cc_library(
     srcs = ["fixtures/http_proxy_fixture.cc"],
     hdrs = ["fixtures/http_proxy_fixture.h"],
     external_deps = [
+        "absl/status",
         "absl/status:statusor",
         "absl/strings",
     ],
@@ -72,6 +73,7 @@ grpc_cc_library(
         "//src/core:channel_args",
         "//src/core:channel_args_preconditioning",
         "//src/core:closure",
+        "//src/core:default_event_engine",
         "//src/core:error",
         "//src/core:iomgr_fwd",
         "//src/core:pollset_set",
