@@ -19,16 +19,18 @@
 /* FIXME: "posix" files shouldn't be depending on _GNU_SOURCE */
 #ifndef _GNU_SOURCE
 #define _GNU_SOURCE
+#include <grpc/support/port_platform.h>
+
 #include <memory>
 
 #include "absl/status/status.h"
 
-#include "grpc/byte_buffer.h"
-#include "grpc/event_engine/event_engine.h"
-#include "grpc/event_engine/memory_allocator.h"
-#include "grpc/event_engine/slice_buffer.h"
-#include "grpc/slice_buffer.h"
+#include <grpc/byte_buffer.h>
+#include <grpc/event_engine/event_engine.h>
+#include <grpc/event_engine/memory_allocator.h>
+#include <grpc/event_engine/slice_buffer.h>
 #include <grpc/grpc.h>
+#include <grpc/slice_buffer.h>
 
 #include "src/core/lib/event_engine/default_event_engine.h"
 #include "src/core/lib/event_engine/posix.h"
