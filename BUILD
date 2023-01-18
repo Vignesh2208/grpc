@@ -2339,7 +2339,6 @@ grpc_cc_library(
         "//src/core:channel_args",
         "//src/core:closure",
         "//src/core:error",
-        "//src/core:experiments",
         "//src/core:ref_counted",
         "//src/core:slice",
         "//src/core:slice_buffer",
