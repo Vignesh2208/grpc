@@ -71,7 +71,7 @@ int64_t event_engine_tcp_client_connect(
       },
       CreateResolvedAddress(*addr), config,
       resource_quota->memory_quota()->CreateEndpointMemoryAllocator(
-                absl::StrCat("tcp-client:", addr_uri.value())),
+          absl::StrCat("tcp-client:", addr_uri.value())),
       std::max(grpc_core::Duration::Milliseconds(1),
                deadline - grpc_core::Timestamp::Now()));
   GRPC_EVENT_ENGINE_TRACE("EventEngine::Connect Peer: %s, handle: %" PRId64,

@@ -36,6 +36,7 @@
 #include <grpc/event_engine/event_engine.h>
 #include <grpc/event_engine/memory_allocator.h>
 #include <grpc/event_engine/memory_request.h>
+#include <grpc/slice.h>
 #include <grpc/support/log.h>
 
 #include "src/core/lib/debug/trace.h"
@@ -573,14 +574,13 @@ class EndpointMemoryAllocator final : public MemoryAllocator {
   grpc_slice AllocateSlice(MemoryRequest request) {
     if (!has_posted_reclaimer_ && ep_ != nullptr) {
       has_posted_reclaimer_ = true;
-      impl()->PostReclaimer(
-          ReclamationPass::kBenign,
-          [this](absl::optional<grpc_core::ReclamationSweep> sweep) {
-            if (sweep.has_value()) {
-              ep_->DropUnusedMemory();
-              has_posted_reclaimer_ = false;
-            }
-          });
+      impl()->PostReclaimer(ReclamationPass::kBenign,
+                            [this](absl::optional<ReclamationSweep> sweep) {
+                              if (sweep.has_value()) {
+                                ep_->DropUnusedMemory();
+                                has_posted_reclaimer_ = false;
+                              }
+                            });
     }
     return MakeSlice(request);
   }

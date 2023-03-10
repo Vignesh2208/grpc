@@ -31,7 +31,6 @@
 #include "absl/status/status.h"
 #include "absl/status/statusor.h"
 #include "absl/strings/str_cat.h"
-#include "absl/types/optional.h"
 
 #include <grpc/event_engine/internal/slice_cast.h>
 #include <grpc/event_engine/slice.h>
@@ -44,7 +43,6 @@
 #include "src/core/lib/event_engine/posix_engine/tcp_socket_utils.h"
 #include "src/core/lib/event_engine/tcp_socket_utils.h"
 #include "src/core/lib/experiments/experiments.h"
-#include "src/core/lib/gprpp/debug_location.h"
 #include "src/core/lib/gprpp/load_file.h"
 #include "src/core/lib/gprpp/ref_counted_ptr.h"
 #include "src/core/lib/gprpp/status_helper.h"

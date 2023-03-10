@@ -1787,7 +1787,6 @@ grpc_cc_library(
         "absl/status",
         "absl/status:statusor",
         "absl/strings",
-        "absl/types:optional",
     ],
     deps = [
         "event_engine_common",
@@ -1808,7 +1807,6 @@ grpc_cc_library(
         "status_helper",
         "strerror",
         "time",
-        "//:debug_location",
         "//:event_engine_base_hdrs",
         "//:gpr",
         "//:grpc_public_hdrs",
