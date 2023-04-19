@@ -24,9 +24,9 @@
 #include "absl/status/status.h"
 #include "absl/time/clock.h"
 #include "absl/time/time.h"
+#include "gtest/gtest.h"
 
-#include "grpc/event_engine/event_engine.h"
-#include "grpc/event_engine/slice_buffer.h"
+#include <grpc/event_engine/slice_buffer.h>
 
 #include "test/core/event_engine/event_engine_test_utils.h"
 #include "test/core/event_engine/fuzzing_event_engine/fuzzing_event_engine.pb.h"
