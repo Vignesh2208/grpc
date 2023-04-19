@@ -19,11 +19,14 @@
 
 #include <chrono>
 #include <cstdint>
+#include <initializer_list>
 #include <map>
 #include <memory>
 #include <queue>
 #include <ratio>
 #include <set>
+#include <string>
+#include <tuple>
 #include <utility>
 #include <vector>
 
@@ -31,7 +34,6 @@
 #include "absl/functional/any_invocable.h"
 #include "absl/status/status.h"
 #include "absl/status/statusor.h"
-#include "absl/strings/str_cat.h"
 #include "absl/strings/str_format.h"
 #include "absl/types/optional.h"
 
