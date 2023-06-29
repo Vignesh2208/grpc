@@ -88,7 +88,9 @@ args = ParseCommandLineArguments(sys.argv[1:])
 
 def _GenerateExperimentFiles(args, mode):
     if mode == "test":
-        _EXPERIMENTS_DEFS = "test/core/experiments/fixtures/test_experiments.yaml"
+        _EXPERIMENTS_DEFS = (
+            "test/core/experiments/fixtures/test_experiments.yaml"
+        )
         _EXPERIMENTS_ROLLOUTS = (
             "test/core/experiments/fixtures/test_experiments_rollout.yaml"
         )
@@ -107,8 +109,11 @@ def _GenerateExperimentFiles(args, mode):
         rollouts = yaml.safe_load(f.read())
 
     compiler = exp.ExperimentsCompiler(
-        DEFAULTS, FINAL_RETURN, FINAL_DEFINE, PLATFORMS_DEFINE,
-        BZL_LIST_FOR_DEFAULTS
+        DEFAULTS,
+        FINAL_RETURN,
+        FINAL_DEFINE,
+        PLATFORMS_DEFINE,
+        BZL_LIST_FOR_DEFAULTS,
     )
 
     experiment_annotation = "gRPC Experiments: "
@@ -132,14 +137,15 @@ def _GenerateExperimentFiles(args, mode):
 
     print(f"Mode = {mode} Generating experiments headers")
     compiler.GenerateExperimentsHdr(_EXPERIMENTS_HDR_FILE, mode)
-  
+
     print(f"Mode = {mode} Generating experiments srcs")
     compiler.GenerateExperimentsSrc(
-        _EXPERIMENTS_SRC_FILE, _EXPERIMENTS_HDR_FILE, mode)
+        _EXPERIMENTS_SRC_FILE, _EXPERIMENTS_HDR_FILE, mode
+    )
 
     if mode == "test":
         print("Generating experiments tests")
-        compiler.GenTest('test/core/experiments/experiments_test.cc')
+        compiler.GenTest("test/core/experiments/experiments_test.cc")
     else:
         print("Generating experiments.bzl")
         compiler.GenExperimentsBzl("bazel/experiments.bzl")
