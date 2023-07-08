@@ -1792,6 +1792,7 @@ grpc_cc_library(
         "lib/event_engine/posix_engine/traced_buffer_list.h",
     ],
     external_deps = [
+        "absl/base:core_headers",
         "absl/functional:any_invocable",
         "absl/status",
         "absl/types:optional",
