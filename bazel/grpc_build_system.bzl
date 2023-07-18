@@ -276,15 +276,15 @@ def ios_cc_test(
 def _update_platform_tags(tags, platforms):
     if "posix" not in platforms:
         if "no_linux" not in tags:
-            tags += ["no_linux"]
+            tags.append("no_linux")
         if "no_mac" not in tags:
-            tags += ["no_mac"]
+            tags.append("no_mac")
     if "windows" not in platforms:
         if "no_windows" not in tags:
-            tags += ["no_windows"]
+            tags.append("no_windows")
     if "ios" not in platforms:
         if "no_test_ios" not in tags:
-            tags += ["no_test_ios"]
+            tags.append("no_test_ios")
     return tags
 
 def expand_tests(name, srcs, deps, tags, args, exclude_pollers, uses_polling, uses_event_engine, flaky):
