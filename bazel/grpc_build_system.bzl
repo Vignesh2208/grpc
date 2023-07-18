@@ -273,7 +273,6 @@ def ios_cc_test(
             deps = ios_test_deps,
         )
 
-
 def _update_platform_tags(tags, platforms):
     if "posix" not in platforms:
         tags = tags + ["no_linux", "no_mac"]
