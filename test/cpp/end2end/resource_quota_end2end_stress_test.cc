@@ -172,9 +172,9 @@ class End2EndConnectionQuotaTest : public ::testing::TestWithParam<int> {
     args.SetInt(GRPC_ARG_HTTP2_MIN_SENT_PING_INTERVAL_WITHOUT_DATA_MS, 15000);
     args.SetInt(GRPC_ARG_KEEPALIVE_PERMIT_WITHOUT_CALLS, 1);
 
-    return EchoTestService::NewStub(CreateCustomChannel(
-        absl::StrCat("ipv6:", absl::StrCat("[::1]:", port_)),
-        grpc::InsecureChannelCredentials(), args));
+    return EchoTestService::NewStub(
+        CreateCustomChannel(absl::StrCat("ipv6:", "[::1]:", port_),
+                            grpc::InsecureChannelCredentials(), args));
   }
 
   void TestExceedingConnectionQuota() {
