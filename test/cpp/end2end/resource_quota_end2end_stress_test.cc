@@ -164,7 +164,7 @@ class End2EndConnectionQuotaTest : public ::testing::TestWithParam<int> {
   ~End2EndConnectionQuotaTest() override { server_->Shutdown(); }
 
   std::unique_ptr<EchoTestService::Stub> CreateGrpcChannelStub() {
-    ::grpc::ChannelArguments args;
+    grpc::ChannelArguments args;
     args.SetInt(GRPC_ARG_USE_LOCAL_SUBCHANNEL_POOL, 1);
     args.SetInt(GRPC_ARG_ENABLE_RETRIES, 0);
     args.SetInt(GRPC_ARG_KEEPALIVE_TIME_MS, 20000);
