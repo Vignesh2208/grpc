@@ -118,7 +118,7 @@ auto ChaoticGoodServerTransport::MaybePushFragmentIntoCall(
                 }),
             [](StatusFlag status) { return StatusCast<absl::Status>(status); });
       },
-      [&error, &frame, &call_initiator, this]() {
+      [&error, &frame]() {
         if (!frame.end_of_stream) {
           gpr_log(
               GPR_INFO,
