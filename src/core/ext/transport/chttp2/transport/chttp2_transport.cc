@@ -3096,9 +3096,10 @@ static void finish_keepalive_ping_locked(
 
 // Returns true if the timer was successfully extended. The provided callback
 // is used only if the timer was not previously scheduled with slack.
-static bool ExtendScheduledTimer(grpc_chttp2_transport* t, TaskHandle& handle,
-                                 EventEngine::Duration duration,
-                                 absl::AnyInvocable<void()> cb) {
+static bool ExtendScheduledTimer(
+    grpc_chttp2_transport* t, TaskHandle& handle,
+    grpc_event_engine::experimental::EventEngine::Duration duration,
+    absl::AnyInvocable<void()> cb) {
   if (handle == TaskHandle::kInvalid) {
     return false;
   }
