@@ -192,7 +192,7 @@ void PosixEngineListenerImpl::AsyncConnectionAcceptor::NotifyOnAccept(
         listener_->memory_allocator_factory_->CreateMemoryAllocator(
             connection_name));
   }
-  GPR_UNREACHABLE_CODE(return);
+  GPR_UNREACHABLE_CODE(return );
 }
 
 void PosixEngineListenerImpl::AsyncConnectionAcceptor::Shutdown() {
