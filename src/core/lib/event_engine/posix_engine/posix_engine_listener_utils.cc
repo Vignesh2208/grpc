@@ -45,7 +45,7 @@ namespace posix_engine {
 namespace {
 
 using ResolvedAddress =
-    ::grpc_event_engine::experimental::EventEngine::ResolvedAddress;
+    grpc_event_engine::experimental::EventEngine::ResolvedAddress;
 using ListenerSocket = ListenerSocketsContainer::ListenerSocket;
 
 #ifdef GRPC_HAVE_IFADDRS
