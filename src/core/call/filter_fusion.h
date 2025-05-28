@@ -1034,7 +1034,7 @@ struct ConstructCall<Derived, absl::void_t<decltype(typename Derived::Call(
                                   std::declval<Derived*>()))>> {
  public:
   using Call = typename Derived::Call;
-  static void Run(grpc_core::ManualConstructor<Call>& call, Derived* channel) {
+  static void Run(ManualConstructor<Call>& call, Derived* channel) {
     LOG(INFO) << "Calling Constructor init";
     call.Init(channel);
   }
@@ -1045,8 +1045,7 @@ struct ConstructCall<Derived,
                      absl::void_t<decltype(typename Derived::Call())>> {
  public:
   using Call = typename Derived::Call;
-  static void Run(grpc_core::ManualConstructor<Call>& call,
-                  Derived* /*channel*/) {
+  static void Run(ManualConstructor<Call>& call, Derived* /*channel*/) {
     call.Init();
   }
 };
@@ -1066,7 +1065,7 @@ struct CallWrapper<Typelist<Filter>> {
   ~CallWrapper() { call_.Destroy(); }
 
  private:
-  grpc_core::ManualConstructor<Call> call_;
+  ManualConstructor<Call> call_;
 };
 
 template <typename Filter0, typename... Filters>
@@ -1084,7 +1083,7 @@ struct CallWrapper<Typelist<Filter0, Filters...>>
   ~CallWrapper() { call_.Destroy(); }
 
  private:
-  grpc_core::ManualConstructor<Call> call_;
+  ManualConstructor<Call> call_;
 };
 
 #undef GRPC_FUSE_METHOD
