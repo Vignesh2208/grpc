@@ -201,7 +201,8 @@ class ServerAuthFilter final : public ImplementChannelFilter<ServerAuthFilter> {
       return ImmediateOkStatus();
       // return  AssertResultType<absl::Status>(If(
       //     filter->server_credentials_ == nullptr ||
-      //         filter->server_credentials_->auth_metadata_processor().process ==
+      //         filter->server_credentials_->auth_metadata_processor().process
+      //         ==
       //             nullptr,
       //     ImmediateOkStatus(),
       //     [filter, md = &md]() { return RunApplicationCode(filter, *md); }));
