@@ -58,8 +58,8 @@ using FusedClientDirectChannelV3ClientAuthFilter =
                 ClientCompressionFilter>;
 
 using FusedServerChannelFilter =
-    FusedFilter<FilterEndpoint::kServer,
-                ServerCompressionFilter, ServerAuthFilter>;
+    FusedFilter<FilterEndpoint::kServer, ServerCompressionFilter,
+                ServerAuthFilter>;
 
 void RegisterFusedFilters(CoreConfiguration::Builder* builder) {
   if (IsCallv3ClientAuthFilterEnabled()) {

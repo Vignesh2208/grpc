@@ -507,36 +507,36 @@ struct RunCallImpl<Promise (Derived::Call::*)(A, Derived* channel), Derived,
 
 // error: implicit instantiation of undefined template
 
-//           grpc_core::promise_filter_detail::RunCallImpl<
-//               grpc_core::promise_detail::TrySeq<
-//                   grpc_core::promise_detail::Immediate<
-//                       grpc_core::ServerMetadataOrHandle<grpc_metadata_batch>>,
-//                   grpc_core::filters_detail::AdaptMethod<
+//           promise_filter_detail::RunCallImpl<
+//               promise_detail::TrySeq<
+//                   promise_detail::Immediate<
+//                       ServerMetadataOrHandle<grpc_metadata_batch>>,
+//                   filters_detail::AdaptMethod<
 //                       grpc_metadata_batch,
-//                       grpc_core::ImmediateOkStatus (
-//                           grpc_core::ServerAuthFilter::Call::*)(
+//                       ImmediateOkStatus (
+//                           ServerAuthFilter::Call::*)(
 //                           grpc_metadata_batch&,
-//                           grpc_core::ServerAuthFilter*),
-//                       &grpc_core::ServerAuthFilter::Call::
+//                           ServerAuthFilter*),
+//                       &ServerAuthFilter::Call::
 //                           OnClientInitialMetadata>> (
-//                   grpc_core::filters_detail::FuseImplOnClientInitialMetadata<
-//                       grpc_core::filters_detail::MethodVariant::kChannelAccess,
-//                       grpc_core::filters_detail::FusedFilter<
-//                           grpc_core::FilterEndpoint::kServer,
-//                           grpc_core::ServerCompressionFilter,
-//                           grpc_core::ServerAuthFilter>,
-//                       grpc_core::ServerCompressionFilter,
-//                       grpc_core::ServerAuthFilter>::*)(
+//                   filters_detail::FuseImplOnClientInitialMetadata<
+//                       filters_detail::MethodVariant::kChannelAccess,
+//                       filters_detail::FusedFilter<
+//                           FilterEndpoint::kServer,
+//                           ServerCompressionFilter,
+//                           ServerAuthFilter>,
+//                       ServerCompressionFilter,
+//                       ServerAuthFilter>::*)(
 //                   std::unique_ptr<grpc_metadata_batch,
-//                                   grpc_core::Arena::PooledDeleter>,
-//                   grpc_core::filters_detail::FusedFilter<
-//                       grpc_core::FilterEndpoint::kServer,
-//                       grpc_core::ServerCompressionFilter,
-//                       grpc_core::ServerAuthFilter>*),
-//               grpc_core::filters_detail::FusedFilter<
-//                   grpc_core::FilterEndpoint::kServer,
-//                   grpc_core::ServerCompressionFilter,
-//                   grpc_core::ServerAuthFilter>>
+//                                   Arena::PooledDeleter>,
+//                   filters_detail::FusedFilter<
+//                       FilterEndpoint::kServer,
+//                       ServerCompressionFilter,
+//                       ServerAuthFilter>*),
+//               filters_detail::FusedFilter<
+//                   FilterEndpoint::kServer,
+//                   ServerCompressionFilter,
+//                   ServerAuthFilter>>
 
 template <typename Derived, typename Promise>
 struct RunCallImpl<
