@@ -65,12 +65,13 @@ using FusedClientDirectChannelV3ClientAuthFilter = FusedFilter<
     ClientAuthorityFilter, ClientAuthFilter, ServiceConfigChannelArgFilter,
     ClientMessageSizeFilter, HttpClientFilter, ClientCompressionFilter>;
 
-using FusedServerChannelFilter = FusedFilter<
-    FilterEndpoint::kServer,
-    kFilterExaminesServerInitialMetadata | kFilterExaminesOutboundMessages |
-        kFilterExaminesInboundMessages,
-    ServerMessageSizeFilter, HttpServerFilter, ServerCompressionFilter,
-    ServerAuthFilter>;
+using FusedServerChannelFilter =
+    FusedFilter<FilterEndpoint::kServer,
+                kFilterExaminesServerInitialMetadata |
+                    kFilterExaminesOutboundMessages |
+                    kFilterExaminesInboundMessages,
+                ServerMessageSizeFilter, HttpServerFilter,
+                ServerCompressionFilter, ServerAuthFilter>;
 
 void RegisterFusedFilters(CoreConfiguration::Builder* builder) {
   if (!IsFuseFiltersEnabled()) {
