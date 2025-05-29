@@ -317,8 +317,8 @@ TEST(ChannelInitTest, PredicateMatchingWithFusedFilters) {
   EXPECT_EQ(
       GetFilterNames(b.Build(), GRPC_CLIENT_CHANNEL,
                      ChannelArgs().Set("filter1", false).Set("filter2", true)),
-      std::vector<std::string>({"Filter2_Filter3_Filter4_Filter5",
-                                "Filter6", "terminal1"}));
+      std::vector<std::string>(
+          {"Filter2_Filter3_Filter4_Filter5", "Filter6", "terminal1"}));
 }
 
 class TestFilter1 {
